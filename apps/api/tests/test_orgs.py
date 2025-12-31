@@ -19,10 +19,12 @@ def test_org_create_add_member_and_me() -> None:
     admin_email = f"admin-{uuid.uuid4().hex}@example.com"
     tokens = _register(admin_email)
 
+    org_name = f"Zenith Coaching {uuid.uuid4().hex}"  # <-- make unique
+
     # Create org
     r = client.post(
         "/orgs",
-        json={"name": "Zenith Coaching"},
+        json={"name": org_name},
         headers={"Authorization": f"Bearer {tokens['access_token']}"},
     )
     assert r.status_code == 200, r.text

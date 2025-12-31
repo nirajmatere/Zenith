@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import os
-from alembic import context
+
 from sqlalchemy import engine_from_config, pool
 
-from zenith_api.db.base import Base  # noqa: F401
+from alembic import context
 from zenith_api.db import models  # noqa: F401
+from zenith_api.db.base import Base
 
 config = context.config
 target_metadata = Base.metadata
@@ -14,7 +15,12 @@ def get_url() -> str:
     return os.environ.get("DATABASE_URL", "postgresql+psycopg://zenith:zenith@localhost:5432/zenith")
 
 def run_migrations_offline() -> None:
-    context.configure(url=get_url(), target_metadata=target_metadata, literal_binds=True, compare_type=True)
+    context.configure(
+        url=get_url(),
+        target_metadata=target_metadata,
+        literal_binds=True,
+        compare_type=True,
+    )
     with context.begin_transaction():
         context.run_migrations()
 

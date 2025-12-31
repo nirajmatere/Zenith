@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from fastapi import FastAPI
 
-app = FastAPI(title="Zenith API", version="0.1.0")
+from zenith_api.routers.health import router as health_router
 
-@app.get("/health")
-def health() -> dict:
-    return {"status": "ok"}
+app = FastAPI(title="Zenith API")
+
+app.include_router(health_router)

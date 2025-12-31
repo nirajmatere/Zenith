@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 import os
+import sys
+from pathlib import Path
 
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-from zenith_api.db import models  # noqa: F401
-from zenith_api.db.base import Base
+
+BASE_DIR = Path(__file__).resolve().parents[1] 
+SRC_DIR = BASE_DIR / "src"
+sys.path.insert(0, str(SRC_DIR))
+
+from zenith_api.db import models  # noqa: E402,F401
+from zenith_api.db.base import Base # noqa: E402
 
 config = context.config
 target_metadata = Base.metadata

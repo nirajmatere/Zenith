@@ -4,6 +4,7 @@ import uuid
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from zenith_api.auth.deps import get_current_user
@@ -40,7 +41,14 @@ def create_org(
 ) -> OrgCreateResponse:
     org = Organization(name=payload.name)
     db.add(org)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Organization name already exists",
+        ) from None
     db.refresh(org)
 
     admin_role = _get_role(db, "admin")

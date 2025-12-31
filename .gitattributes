@@ -1,0 +1,19 @@
+# Default: keep text files as LF in repo, convert to CRLF on checkout if core.autocrlf is true
+* text=auto
+
+# Always keep these as LF (important for CI on Linux)
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+
+# Lockfiles should be LF to avoid noisy diffs
+pnpm-lock.yaml text eol=lf
+package-lock.json text eol=lf
+yarn.lock text eol=lf

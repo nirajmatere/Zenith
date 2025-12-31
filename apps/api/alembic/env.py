@@ -13,7 +13,7 @@ SRC_DIR = BASE_DIR / "src"
 sys.path.insert(0, str(SRC_DIR))
 
 from zenith_api.db import models  # noqa: E402,F401
-from zenith_api.db.base import Base # noqa: E402
+from zenith_api.db.base import Base  # noqa: E402
 
 config = context.config
 target_metadata = Base.metadata

@@ -5,8 +5,10 @@ Revises:
 Create Date: 2025-12-31 21:15:55.460121
 """
 from __future__ import annotations
-from alembic import op
+
 import sqlalchemy as sa
+
+from alembic import op
 
 revision = '3071c5791ae4'
 down_revision = None
@@ -48,8 +50,18 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_memberships_organization_id'), 'memberships', ['organization_id'], unique=False)
-    op.create_index(op.f('ix_memberships_user_id'), 'memberships', ['user_id'], unique=False)
+    op.create_index(
+    op.f("ix_memberships_organization_id"),
+        "memberships",
+        ["organization_id"],
+        unique=False,
+    )
+    op.create_index(
+        op.f("ix_memberships_user_id"),
+        "memberships",
+        ["user_id"],
+        unique=False,
+    )
     # ### end Alembic commands ###
 
 def downgrade() -> None:
